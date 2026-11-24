@@ -1,0 +1,16 @@
+m0/.env
+m0/.env.example
+m0/.secrets/
+m0/out/
+m0/tools/
+m0/data/*.log
+data/
+deploy/.env.production
+deploy/data/
+_github_refs/
+*.md
+*.html
+!webapp/index.html
+__pycache__/
+*.pyc
+.git/

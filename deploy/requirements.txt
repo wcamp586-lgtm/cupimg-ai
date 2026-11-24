@@ -1,0 +1,11 @@
+# 线上容器依赖（首尔机直连 PyPI；如慢可在 Dockerfile 里加 -i 镜像参数）
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-multipart>=0.0.12
+
+Pillow>=10.0
+numpy>=1.26
+
+# live 抠图：轻量 u2netp 权重已随镜像打包，不依赖运行时联网下载
+rembg[cpu]>=2.0.60
+onnxruntime>=1.18

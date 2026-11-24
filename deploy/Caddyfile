@@ -1,0 +1,24 @@
+# 自动申请/续期 Let's Encrypt 证书（需 80/443 可达且 DOMAIN 已解析到本机 IP）
+{$DOMAIN} {
+	encode gzip
+
+	request_body {
+		max_size 20MB
+	}
+
+	@api path /api/* /healthz
+	handle @api {
+		reverse_proxy api:8000
+	}
+
+	handle {
+		reverse_proxy api:8000
+	}
+
+	header {
+		X-Content-Type-Options nosniff
+		X-Frame-Options DENY
+		Referrer-Policy no-referrer
+		-Server
+	}
+}

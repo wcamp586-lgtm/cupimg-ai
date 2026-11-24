@@ -1,0 +1,24 @@
+# 这台服务器已有系统 nginx 占用 80/443，并跑着其他业务容器。
+# 因此本服务不抢公网端口：只监听 127.0.0.1:8000，由 nginx 新增独立 server block 反代。
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    env_file: .env.production
+    environment:
+      # 生产权重尚未补齐时先用已校验的 u2netp；isnet 到位后改这里即可
+      REMBG_MODEL: u2netp
+      U2NET_HOME: /app/assets/models
+      WB_DATA_DIR: /app/data
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      - ./data:/app/data
+      - ./data/out:/app/m0/out
+    ports:
+      # 只绑定回环，公网只能经 nginx 进来
+      - "127.0.0.1:8000:8000"
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }

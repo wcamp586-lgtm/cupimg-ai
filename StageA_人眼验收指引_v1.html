@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stage A 人眼验收指引 v1</title>
+<style>
+  :root{--ink:#1f2328;--sub:#5b6570;--line:#e3e7eb;--bg:#f7f8fa;--card:#fff;
+        --accent:#1f6feb;--warn:#b45309;--warnbg:#fff7ed;--ok:#15803d;--okbg:#f0fdf4;}
+  *{box-sizing:border-box}
+  body{margin:0;padding:32px 20px 64px;background:var(--bg);color:var(--ink);
+       font:15px/1.75 -apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+  .wrap{max-width:940px;margin:0 auto}
+  header{background:var(--card);border:1px solid var(--line);border-radius:14px;
+         padding:26px 30px;margin-bottom:20px}
+  h1{margin:0 0 8px;font-size:26px;letter-spacing:.3px}
+  .meta{color:var(--sub);font-size:13px}
+  .lead{margin:18px 0 0;padding:14px 16px;background:#eef5ff;border-left:4px solid var(--accent);
+        border-radius:0 8px 8px 0;font-size:15px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;
+          padding:22px 30px;margin-bottom:16px}
+  h2{font-size:18px;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+  h2 span{display:inline-block;min-width:34px;color:var(--accent);font-variant-numeric:tabular-nums}
+  p{margin:10px 0}
+  ul{margin:10px 0;padding-left:22px}li{margin:5px 0}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:#f3f5f7;font-weight:600;white-space:nowrap}
+  code{background:#f1f3f5;padding:1px 6px;border-radius:4px;font-size:13px;
+       font-family:"SFMono-Regular",Consolas,monospace}
+  .tag{display:inline-block;padding:1px 8px;border-radius:20px;font-size:12px;font-weight:600}
+  .tag.red{background:#fee2e2;color:#b91c1c}.tag.gray{background:#eceff2;color:#475569}
+  .tag.green{background:var(--okbg);color:var(--ok)}
+  .note{background:var(--warnbg);border-left:4px solid var(--warn);padding:12px 16px;
+        border-radius:0 8px 8px 0;margin:14px 0;font-size:14px}
+  .pass{background:var(--okbg);border-left:4px solid var(--ok);padding:12px 16px;
+        border-radius:0 8px 8px 0;margin:14px 0}
+  .formula{background:#1f2328;color:#e6edf3;padding:14px 18px;border-radius:8px;
+           font-family:"SFMono-Regular",Consolas,monospace;font-size:13px;margin:12px 0}
+  footer{text-align:center;color:var(--sub);font-size:12px;margin-top:26px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Stage A 人眼验收指引 v1</h1>
+  <div class="meta">2026-11-08 ｜ 对应《落地执行方案 v1》Stage A 门禁 ｜ 10 个 SKU</div>
+  <p class="lead"><strong>一句话：AI 只能换背景 / 排版，不能改已经定稿的商品主体。</strong><br>
+  本次跑批：<strong>自动项 10/10 ｜ 累计 0.0623 元 ｜ 生产级 <code>isnet</code> 抠图 ｜ 全部 <code>PIPELINE_OK / READY / 合规无未过项</code></strong><br>
+  门禁状态恒为 <code>PENDING_HUMAN</code>：脚本只出图和表，绝不替人宣布 PASS。<br>
+  <strong>2026-11-22 口径更新</strong>：主图 1 已改为直接复用定稿原图（不抠图），详见 §03 末尾；本目录存档的 10 张三栏图仍是 2026-11-08 的 <code>cutout</code> 旧口径。</p>
+</header>
+
+<section>
+  <h2><span>01</span> 这次验的是什么</h2>
+  <ul>
+    <li>输入是 7 个美工交付 RAR 包里「白底 / 透明」目录的<strong>单杯定稿图</strong>，不是相机原始实拍原片（用户已确认接受此口径）。</li>
+    <li>「定稿图与实物是否一致」由美工既有流程保证，<strong>本次不验</strong>，报告不会冒充原片。</li>
+    <li>本批次 10 个 SKU 全部是金属保温杯（含 1 款纯钛）；在售品类偶尔有塑料杯，<strong>没有玻璃产品</strong>，玻璃 / 折射 / 双层杯壁专项已从门禁永久移除。</li>
+    <li>照片里的<strong>透明 / 半透明塑料盖件</strong>归入「杯盖」类验收，不是玻璃。</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span>02</span> 材料在哪</h2>
+  <table>
+    <tr><th>材料</th><th>路径</th></tr>
+    <tr><td>10 张三栏对比图</td><td><code>stage_a/results/compare/*.png</code></td></tr>
+    <tr><td>10 图总览拼图（先看这个）</td><td><code>stage_a/results/contact.jpg</code></td></tr>
+    <tr><td>成品主图 / 场景图 / 详情图（看细节）</td><td><code>stage_a/results/products/&lt;case&gt;/final/</code></td></tr>
+    <tr><td>输入定稿原图</td><td><code>stage_a/inputs/&lt;case&gt;.png</code> / <code>.jpg</code></td></tr>
+    <tr><td>自动项汇总</td><td><code>stage_a/results/scorecard.md</code> / <code>.json</code></td></tr>
+    <tr><td><strong>要填的验收表</strong></td><td><code>stage_a/results/review_sheet.csv</code></td></tr>
+    <tr><td>每个 case 的运行日志</td><td><code>stage_a/results/cases/&lt;case&gt;/run.log</code></td></tr>
+  </table>
+</section>
+
+<section>
+  <h2><span>03</span> 三栏对比图怎么看</h2>
+  <table>
+    <tr><th>栏</th><th>内容</th></tr>
+    <tr><td>1 ORIGINAL PHOTO</td><td>输入定稿图（透明底 PNG 会渲染成灰底）</td></tr>
+    <tr><td>2 OUTPUT MAIN</td><td>AI 产出的 1688 白底主图</td></tr>
+    <tr><td>3 CONTOUR OVERLAY</td><td>轮廓叠影：<span class="tag gray">灰 = 两边重合</span> <span class="tag red">红 = 原图独有</span> <span class="tag green">青 = 成品独有</span></td></tr>
+  </table>
+  <div class="note">右下角 <code>contour IoU</code> <strong>只是参考值，不是判定依据</strong>。看不清就打开 <code>products/&lt;case&gt;/final/main_white.png</code>（800×800）和原图并排放大。</div>
+  <div class="note"><strong>2026-11-22 口径更新（白底主图不再参与形变比对）</strong><br>
+  ① 主图 1 已改为直接复用美工定稿白底 / 透明底原图（<code>--white-source=original</code> 为默认值），不经过抠图模型。<br>
+  ② 本目录存档的 10 张三栏对比图属于 2026-11-08 的 <code>cutout</code> 旧口径（抠图版主图 vs 原图），仍用于判断当时抠图是否伤到主体；其中 <code>reflect_02</code> 已确认浅蓝椭圆印花被抠成白洞，正是切口径的原因。<br>
+  ③ 新口径下 0 容忍验收对象改为换景图 / 详情图里使用的主体（仍需抠图或沿用原 alpha）；<code>main_white.png</code> 只校验尺寸、白底、主体占比与文件完整性。<br>
+  ④ <code>reflect_02</code> 保留为<strong>固定回归样张</strong>，以后每次改抠图 / 合成 / 模板都要复查杯身蓝色椭圆与格纹是否完整。</div>
+</section>
+
+<section>
+  <h2><span>04</span> 逐类看什么</h2>
+  <table>
+    <tr><th>类别</th><th>case</th><th>重点看</th></tr>
+    <tr><td>杯盖</td><td><code>cap_01</code></td><td>方形透明视窗盖、多饮口结构是否丢失或变形</td></tr>
+    <tr><td>杯盖</td><td><code>cap_02</code></td><td>半透明塑料盖件的 alpha 边缘是否被抠糊</td></tr>
+    <tr><td>反光</td><td><code>reflect_01</code></td><td>纯钛镜面高光是否被抠图吃掉或变脏</td></tr>
+    <tr><td>反光</td><td><code>reflect_02</code></td><td>格纹金属杯身与球盖反光边缘是否断裂</td></tr>
+    <tr><td>提环</td><td><code>handle_01</code></td><td>提环内孔是否填实、与杯盖连接处是否缺肉</td></tr>
+    <tr><td>提环</td><td><code>handle_02</code></td><td>提环与外接挂绳 / 背带是否丢失或断裂</td></tr>
+    <tr><td>Logo</td><td><code>logo_01</code></td><td>杯身 <code>KING LIKE</code> 小字是否变字、糊字、位移</td></tr>
+    <tr><td>Logo</td><td><code>logo_02</code></td><td>卡通印花与 <code>BEAD / READY</code> 描边小字是否完整保留</td></tr>
+    <tr><td>异形</td><td><code>shape_01</code></td><td>锥形咖啡杯非圆柱轮廓是否走样</td></tr>
+    <tr><td>异形</td><td><code>shape_02</code></td><td>三饮盖凸起与杯身衔接处轮廓是否变形</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2><span>05</span> 0 容忍清单</h2>
+  <p>出现任一条，该 case 判 <span class="tag red">FAIL</span>：</p>
+  <ul>
+    <li>杯身外轮廓变胖 / 变瘦 / 收腰位置移动 / 杯口杯底形状变化。</li>
+    <li>Logo 或印字<strong>变字、糊掉、缺笔、位置明显偏移、颜色被改</strong>。</li>
+    <li>提环内孔被填实成实心、提环断裂、挂绳或背带整段消失。</li>
+    <li>杯盖配件（视窗、饮口、球盖、卡扣）丢失、多出或变形。</li>
+    <li>主体被裁切、被背景色啃掉一块、出现明显半透明残影。</li>
+    <li>图上出现与定稿图不一致的新增图案、文字或道具。</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span>06</span> 哪些不算形变（别误判）</h2>
+  <ul>
+    <li><strong>白色 Logo / 印花 / 金属高光</strong>在轮廓比对里可能造成红 / 青噪点，属于算法对「非白像素」的判定噪声。</li>
+    <li><strong>透明底 PNG 渲染成灰底</strong>与白底成品之间的背景差异，不是主体变化。</li>
+    <li>提环内孔、杯口内侧这类<strong>空腔区域</strong>的红 / 青块，要结合 1、2 栏肉眼确认：两边都空、形状一致，就不算形变。</li>
+    <li>场景图、详情图里 AI 生成的背景 / 光影 / 排版<strong>本来就该变</strong>；0 容忍只针对商品主体。</li>
+    <li>IoU 低只是提示「值得多看一眼」，不能直接判 FAIL；IoU 高也不能直接判 PASS（小字变字不影响轮廓）。</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span>07</span> 怎么填 review_sheet.csv</h2>
+  <p>每个 case 一行，按 <code>review_sheet.csv</code> 的<strong>实际表头</strong>填写（不要改列名）：</p>
+  <table>
+    <tr><th>列名</th><th>填法</th></tr>
+    <tr><td>主体形变(0容忍:无/有)</td><td><code>无</code> = 未发现形变；<code>有</code> = 发现形变，<strong>直接判 FAIL</strong></td></tr>
+    <tr><td>Logo变字(无/有/不适用)</td><td><code>无</code> / <code>有</code> / <code>不适用</code></td></tr>
+    <tr><td>提环杯盖结构(无/有/不适用)</td><td><code>无</code> / <code>有</code> / <code>不适用</code></td></tr>
+    <tr><td>反光结构(无/有/不适用)</td><td><code>无</code> / <code>有</code> / <code>不适用</code></td></tr>
+    <tr><td>结论(PASS/FAIL)</td><td><code>PASS</code> / <code>FAIL</code></td></tr>
+    <tr><td>备注</td><td>写明具体问题，例如「杯盖右侧卡扣缺一角」</td></tr>
+  </table>
+  <div class="note">这里的 <code>无 / 有</code> 指<strong>「无问题 / 有问题」</strong>，不是「有没有这个结构」；结构本身不存在时填 <code>不适用</code>。<br>
+  建议两个人各看一遍（业务 + 美工），有分歧的 case 单独标出来复核。</div>
+</section>
+
+<section>
+  <h2><span>08</span> 门禁怎么判</h2>
+  <div class="formula">通过 = (形变 = 0 容忍全部满足) 且 (PASS &gt;= 7/10)<br>不过线 = 止损，不进入 M1 正式管线开发</div>
+  <p>只要出现 1 例确凿的主体形变，就按「0 容忍」处理，先定位是抠图、合成还是模型的问题，修完复跑，<strong>不要靠降低标准放行</strong>。</p>
+</section>
+
+<section>
+  <h2><span>09</span> 边界提醒</h2>
+  <ul>
+    <li>这一批产物<strong>禁止直接上架 1688</strong>：还原度尚未由人眼验收，且部分商品事实（材质 316L、容量 550ml）是同系列推定值。</li>
+    <li>纯钛杯 320mL、142 与 156 的 316L、星球 550ml、175 的 240mL 来自详情图明确标注；其余为同系列推定，上架前须逐条核对。</li>
+    <li>自动项（<code>PIPELINE_OK</code> / <code>READY</code> / 合规全 PASS）只证明链路跑通，<strong>不代表图能用</strong>。</li>
+    <li>本次用生产级 <code>isnet-general-use</code> 抠图（Apache-2.0，官方 MD5 已校验），不是临时轻量模型，抠图质量不应成为误判理由。</li>
+  </ul>
+</section>
+
+<footer>1688 杯具 AI 作图 · Stage A 门禁 · 形变 0 容忍由人眼最终裁定</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1688 杯具 AI 作图 · 线上内测试用说明 v1</title>
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--ink:#1f2329;--muted:#646a73;--line:#e5e7eb;--accent:#1a5fb4;--ok:#137333;--warn:#b06000;--bad:#b3261e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.75 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+.wrap{max-width:1020px;margin:0 auto;padding:36px 24px 80px}
+header{background:linear-gradient(135deg,#1a5fb4,#2b7cd3);color:#fff;border-radius:14px;padding:30px 34px;margin-bottom:24px}
+header h1{margin:0 0 8px;font-size:26px;letter-spacing:.5px}
+header p{margin:4px 0;opacity:.92;font-size:14px}
+nav{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:24px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+nav a{color:var(--accent);text-decoration:none;font-size:13px}
+nav a:hover{text-decoration:underline}
+nav button{margin-left:auto;background:var(--accent);color:#fff;border:0;border-radius:7px;padding:7px 14px;font-size:13px;cursor:pointer}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 28px;margin-bottom:18px}
+h2{font-size:19px;margin:0 0 14px;padding-bottom:10px;border-bottom:2px solid var(--accent)}
+h3{font-size:16px;margin:20px 0 8px}
+p{margin:9px 0}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+th{background:#f0f4fa;font-weight:600}
+tr:nth-child(even) td{background:#fafbfc}
+code{background:#f2f4f7;border-radius:4px;padding:2px 5px;font-size:13px;font-family:Consolas,Monaco,monospace}
+pre{background:#1f2329;color:#e6e9ef;border-radius:9px;padding:16px 18px;overflow-x:auto;font-size:13px;line-height:1.6}
+pre code{background:none;color:inherit;padding:0}
+.box{border-left:4px solid var(--accent);background:#f2f7ff;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+.box.warn{border-color:var(--warn);background:#fff8ec}
+.box.ok{border-color:var(--ok);background:#f0f9f2}
+.box.bad{border-color:var(--bad);background:#fdf2f1}
+ul,ol{margin:8px 0;padding-left:22px}
+li{margin:5px 0}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:10px;background:#e8f0fe;color:var(--accent);margin-right:6px}
+.tag.no{background:#fce8e6;color:var(--bad)}
+.tag.free{background:#e6f4ea;color:var(--ok)}
+.url{font-size:19px;font-weight:600;color:var(--accent);word-break:break-all}
+footer{text-align:center;color:var(--muted);font-size:13px;margin-top:28px}
+@media print{body{background:#fff}nav{display:none}section{border:0;box-shadow:none;padding:0 0 14px;page-break-inside:avoid}header{background:#1a5fb4 !important;-webkit-print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>1688 杯具 AI 作图 · 线上内测试用说明 v1</h1>
+  <p>已上线、可邀请试用 · 1–3 人小范围体验 · 不公开、不售卖</p>
+  <p>2026-11-06 实测全链路通过 · 本文可直接转发，访问口令单独发送</p>
+</header>
+
+<nav>
+  <a href="#s0">00 结论</a><a href="#s1">01 访问</a><a href="#s2">02 操作</a>
+  <a href="#s3">03 产物</a><a href="#s4">04 边界</a><a href="#s5">05 排错</a>
+  <a href="#s6">06 运维</a><a href="#s7">07 验收</a><a href="#s8">08 下一步</a>
+  <button onclick="window.print()">打印／另存 PDF</button>
+</nav>
+
+<section id="s0">
+  <h2>00 一句话结论</h2>
+  <p class="url">https://cupimg.aicloud.plus</p>
+  <p>输入邀请口令 → 上传一张杯子实拍图、填 5 个商品事实字段 → 等约 90–120 秒 → 拿到主图 / 场景图 / 详情图 / 可编辑 SVG，以及一个含合规与成本存证的 ZIP。</p>
+  <div class="box bad"><strong>当前产物仅供人工评审，禁止直接上架 1688。</strong> 杯子还原度尚未验收，线上验证用的是示例图，不是美工实拍图。</div>
+</section>
+
+<section id="s1">
+  <h2>01 访问方式</h2>
+  <table>
+    <tr><th>项</th><th>值</th></tr>
+    <tr><td>网址</td><td><code>https://cupimg.aicloud.plus</code></td></tr>
+    <tr><td>访问口令</td><td>由邀请人单独发送（本文件不含）</td></tr>
+    <tr><td>登录有效期</td><td>7 天（httponly cookie，之后需重新输入）</td></tr>
+    <tr><td>浏览器</td><td>Chrome / Edge / 手机浏览器均可，无需安装软件</td></tr>
+    <tr><td>网络</td><td>服务器在腾讯云首尔，境内访问偶有波动属正常</td></tr>
+  </table>
+  <p>打开后先出现「访问口令」输入框，验证通过才显示上传表单。口令是<strong>全站共用</strong>的，不是个人账号。</p>
+</section>
+
+<section id="s2">
+  <h2>02 三步操作流程</h2>
+  <ol>
+    <li><strong>上传实拍图</strong>：JPG / PNG，≤15 MB。建议单只杯子正面、背景干净、光线均匀、无水印无贴字、短边 ≥800 px。</li>
+    <li><strong>填写商品事实</strong>：5 个必填 + 5 个选填。这些是出图文案与合规校验的唯一事实来源，不会让 AI 猜参数，缺字段直接拒绝出图。</li>
+    <li><strong>提交并等待</strong>：约 90–120 秒，页面实时打印 10 步流水线日志，完成后出现三张预览图、SVG 单独下载、ZIP 打包下载。</li>
+  </ol>
+  <h3>表单字段</h3>
+  <table>
+    <tr><th>字段</th><th>必填</th><th>说明</th></tr>
+    <tr><td>商品图片</td><td>是</td><td>上传前自动剥离 EXIF（含 GPS）</td></tr>
+    <tr><td>SKU 编号</td><td>是</td><td>仅字母数字 <code>-</code> <code>_</code>，最长 40 字符</td></tr>
+    <tr><td>商品名称</td><td>是</td><td>会进入主图标题，别写极限词</td></tr>
+    <tr><td>材质</td><td>是</td><td>如「高硼硅玻璃」</td></tr>
+    <tr><td>容量 ml</td><td>是</td><td>正整数，如 <code>350</code></td></tr>
+    <tr><td>颜色</td><td>是</td><td>如「透明」</td></tr>
+    <tr><td>尺寸 mm</td><td>否</td><td>如 <code>75×75×145</code></td></tr>
+    <tr><td>Logo 文字</td><td>否</td><td>杯身实际印字，没有就留空</td></tr>
+    <tr><td>品牌</td><td>否</td><td>需为可合法使用的品牌</td></tr>
+    <tr><td>有无把手</td><td>否</td><td>影响视觉识别与排版</td></tr>
+    <tr><td>异形 / 结构说明</td><td>否</td><td>如「直筒圆杯带把手、杯口金色描边」</td></tr>
+  </table>
+</section>
+
+<section id="s3">
+  <h2>03 你会拿到什么</h2>
+  <table>
+    <tr><th>产物</th><th>用途</th></tr>
+    <tr><td><code>final/main_white.png</code></td><td>800×800 白底主图，主体为原图像素，背景由本地合成</td></tr>
+    <tr><td><code>final/scene.png</code></td><td>场景图，AI 只画空场景氛围，不重绘杯子</td></tr>
+    <tr><td><code>final/detail.png</code></td><td>详情图，文案 + 卖点排版</td></tr>
+    <tr><td><code>editable/design.svg</code></td><td>可编辑矢量稿，供美工导入 CorelDRAW 精修</td></tr>
+    <tr><td><code>delivery.json</code></td><td>三态交付结论（READY / READY_PARTIAL / NEEDS_REVIEW）</td></tr>
+    <tr><td><code>evidence/compliance_report.json</code></td><td>合规四件套 + 1688 图规逐项结果</td></tr>
+    <tr><td><code>evidence/cost.json</code></td><td>成本账本，含模型版本与调用状态</td></tr>
+  </table>
+  <p>ZIP 一次打包上述 7 个文件。线上另留 <code>generation_record.json</code>、底图哈希、AI 披露文件与任务日志。</p>
+  <div class="box ok"><strong>导出前硬校验（线上实测 7 项全 PASS）</strong><br>正方形画布、短边 ≥800 px、RGB、边缘白底占比、主体占比、文件体积、极限词 / 字体白名单 / AI 标识 / 预算 / 调用状态 / 文字不越界。任一不通过即降级为 <code>NEEDS_REVIEW</code>，不会静默出图。</div>
+</section>
+
+<section id="s4">
+  <h2>04 必须知道的边界</h2>
+  <table>
+    <tr><th>边界</th><th>说明</th></tr>
+    <tr><td>禁止直接上架</td><td>杯子还原度尚未验收；当前线上验证用示例图，非美工实拍图</td></tr>
+    <tr><td>AI 生成合成内容</td><td>已写入显式标识与元数据隐式标识，生成记录留存</td></tr>
+    <tr><td>每日 8 次（全局共享）</td><td>不是每人 8 次；北京时间 0 点重置，用完返回 429</td></tr>
+    <tr><td>并发恒为 1</td><td>2C4G 内存有限，后提交的任务排队，请错开时间</td></tr>
+    <tr><td>单张约 0.005–0.006 元</td><td>走百炼免费额度，已开「免费额度用完即停」+ 成本上限 10 元</td></tr>
+    <tr><td>无个人账号 / 私有空间</td><td>口令共用、任务 ID 不加密；不要上传涉密或客户未授权图片</td></tr>
+    <tr><td>无在线改稿</td><td>改字改排版请下载 SVG 交美工在 CorelDRAW 处理（Konva 在线改稿属 M2）</td></tr>
+    <tr><td>内测阶段不备案</td><td>服务器在境外、不公开、不售卖、未挂国内 CDN/COS 自定义域名；正式对外售卖或切国内节点，必须切已备案域名并补公安备案</td></tr>
+  </table>
+</section>
+
+<section id="s5">
+  <h2>05 常见问题</h2>
+  <table>
+    <tr><th>现象</th><th>原因 / 处理</th></tr>
+    <tr><td>「口令不对」401</td><td>口令输错或已更换，向邀请人索取当前口令</td></tr>
+    <tr><td>「今日体验额度已用完」429</td><td>全局 8 次已用完，次日再试</td></tr>
+    <tr><td>「不是有效图片文件」400</td><td>格式不对、文件损坏或超过 15 MB，压缩后重传</td></tr>
+    <tr><td>「容量必须是正数」400</td><td>填纯数字 ml，不要带单位</td></tr>
+    <tr><td>任务 <code>failed</code></td><td>展开页面日志看末尾；多为模型超时、免费额度耗尽或图片过于复杂</td></tr>
+    <tr><td>下载按钮 404</td><td>任务尚未产出成品，等状态变成「已完成」</td></tr>
+    <tr><td>页面打不开</td><td>首尔节点偶发波动；先刷新，仍不行联系邀请人</td></tr>
+  </table>
+</section>
+
+<section id="s6">
+  <h2>06 上线技术状态（给运维 / 开发 AI）</h2>
+  <table>
+    <tr><th>项</th><th>值</th></tr>
+    <tr><td>服务器</td><td>腾讯云<strong>轻量应用服务器</strong> <code>lhins-4er2ovz2</code>，首尔二区，Ubuntu 24.04，2C4G / 60G，公网 <code>101.33.74.41</code></td></tr>
+    <tr><td>DNS</td><td>阿里云 <code>aicloud.plus</code>，A 记录 <code>cupimg</code> → <code>101.33.74.41</code></td></tr>
+    <tr><td>HTTPS</td><td>Let's Encrypt，2026-11-06 生效，到期 2027-02-04，certbot 自动续期</td></tr>
+    <tr><td>容器</td><td><code>deploy-api-1</code>，仅监听 <code>127.0.0.1:8000</code>，<code>restart: unless-stopped</code></td></tr>
+    <tr><td>公网入口</td><td>系统已有 nginx（还跑着其他业务），新增独立 <code>server_name</code> 反代；<strong>不抢 80/443、不影响原有站点</strong></td></tr>
+    <tr><td>持久化</td><td><code>/opt/cupimg/deploy/data</code> 挂进容器：任务、上传原图、产物、日志均落盘</td></tr>
+    <tr><td>模型</td><td><code>qwen3-vl-plus</code> 看图 → <code>qwen3.7-plus</code> 文案 → <code>qwen-image-3.0</code> 空场景 → <code>rembg/u2netp</code> 抠图 → 本地合成</td></tr>
+    <tr><td>交付代码</td><td>工作区 <code>m0/</code> 管线、<code>webapp/</code> FastAPI、<code>deploy/</code> 部署配置、<code>cupimg_bundle.tar.gz</code> 上线包</td></tr>
+  </table>
+  <h3>常用命令</h3>
+<pre><code># 从本机连服务器（私钥在 m0/.secrets/，不要外传）
+ssh -i m0/.secrets/lighthouse_ed25519 ubuntu@101.33.74.41
+
+# 线上健康与当日用量
+curl -sS --noproxy '*' https://cupimg.aicloud.plus/healthz
+
+# 看服务日志（含 RESTORE 状态恢复记录）
+sudo docker logs --tail 100 deploy-api-1
+
+# 重启 API（会恢复历史任务，但正在跑的任务会被标记中断）
+sudo docker compose -f /opt/cupimg/deploy/docker-compose.yml restart api</code></pre>
+  <div class="box warn"><strong>改访问口令：</strong>改 <code>deploy/.env.production</code> 的 <code>ACCESS_CODE</code> → 重跑 <code>python deploy/make_bundle.py</code> → 上传解压 → <code>docker compose up -d --force-recreate api</code>。改口令会让所有人已发的 cookie 立即失效，需重新通知。</div>
+</section>
+
+<section id="s7">
+  <h2>07 2026-11-06 验收记录</h2>
+  <table>
+    <tr><th>时间</th><th>验收项</th><th>结果</th></tr>
+    <tr><td>19:50</td><td>首次线上 live 全链路</td><td><span class="tag free">PASS</span> <code>PIPELINE_OK</code> / <code>READY</code> / 0.0052 元 / 95.1 s / 桩环节无</td></tr>
+    <tr><td>20:00</td><td>HTTPS 证书</td><td><span class="tag free">PASS</span> 校验通过，非自签，到期 2027-02-04</td></tr>
+    <tr><td>20:03</td><td>状态持久化修复</td><td><span class="tag free">PASS</span> 重启后 <code>RESTORE jobs=1 used=1</code>，历史任务与当日限额保留</td></tr>
+    <tr><td>20:07</td><td>重启 + 依赖升级后回归</td><td><span class="tag free">PASS</span> <code>PIPELINE_OK</code> / <code>READY</code> / 0.0056 元 / 88.1 s</td></tr>
+    <tr><td>20:09</td><td>ZIP 下载闭环</td><td><span class="tag free">PASS</span> 977553 B，7 个成员，CRC 全过</td></tr>
+  </table>
+</section>
+
+<section id="s8">
+  <h2>08 下一步（按优先级）</h2>
+  <ol>
+    <li><strong>换美工真实实拍图跑 Stage A 门禁</strong>：10 SKU（玻璃 / 反光 / 把手 / Logo / 异形各 2）、预算 50 元、主体形变 0 容忍、≥7/10 达标才继续开发；过不了就止损，不继续建站。</li>
+    <li><strong>补齐生产抠图权重</strong>：当前 <code>u2netp</code> 是已校验可商用的轻量兜底，生产应换 <code>isnet-general-use</code>（Apache-2.0，170 MB 权重尚未补齐，脚本 <code>m0/tools/fetch_cutout_model.py</code> 已备）。</li>
+    <li><strong>M4 内测</strong>：先自有 6 店，再邀 2–3 位外部商家，收集「哪张图会被打回」的真实反馈。</li>
+    <li><strong>M3 SaaS 底座 → M2 Web 改稿</strong>：多租户、账本、审计、权限、Konva 在线改稿。</li>
+    <li><strong>正式对外前</strong>：切国内节点 + 已备案域名 + 公安备案 + 国内 COS / 模型 Key（靠模型适配层配置切换）。</li>
+  </ol>
+  <div class="box">与早期文档冲突时：<strong>阶段范围以本文及《单图跑通执行方案 v1》为准，架构选型仍以《技术架构报告 v2》为准</strong>。早期文档中「尚未上线 / 待部署」的描述已被本文验收记录取代。</div>
+</section>
+
+<footer>1688 杯具 AI 作图 · 线上内测试用说明 v1 · 2026-11-06</footer>
+</div>
+</body>
+</html>

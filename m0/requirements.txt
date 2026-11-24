@@ -1,0 +1,7 @@
+# 单图跑通最小依赖（offline 模式只需要前两个）
+Pillow>=10.0
+numpy>=1.26
+
+# 仅 --mode live 才需要；首次运行会下载模型权重，可后置
+# rembg[cpu]>=2.0.60
+# onnxruntime>=1.18

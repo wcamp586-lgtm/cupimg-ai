@@ -1,0 +1,27 @@
+# ---- 密钥与口令（严禁入库）----
+m0/.env
+m0/.secrets/
+deploy/.env.production
+*.bak.*
+*.state.json
+
+# ---- 大体积产物 / 权重 / 打包件 ----
+m0/out/
+stage_a/results/
+stage_a/out/
+data/
+demo_run*/
+assets/models/*.onnx
+*.tar.gz
+*.zip
+
+# ---- 运行时垃圾 ----
+__pycache__/
+*.pyc
+*.log
+pip_install.log
+
+# ---- 会话/临时 ----
+*.tmp
+.DS_Store
+.workbuddy/
